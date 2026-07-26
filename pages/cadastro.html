@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cadastrar</title>
+    <link href="../src/style.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="../src/favicon.ico" />
+  </head>
+  <body>
+    <main>
+      <h1 class="titulo">Cadastrar Dados</h1>
+      <hr />
+
+      <p class="info">Selecione a Tabela para inserir os dados</p>
+      <select id="select-tabela">
+        <option value="autores">autores</option>
+        <option value="generos">generos</option>
+        <option value="livros">livros</option>
+      </select>
+      <form id="formulario-cadastro" method="post">
+        <div id="container-campos">
+          <!-- <label class="label" for="nome_autor" -->
+          <!--   >Nome do Autor<span class="obrigatorio">*</span></label -->
+          <!-- > -->
+          <!-- <input -->
+          <!--   class="input" -->
+          <!--   type="text" -->
+          <!--   name="nome_autor" -->
+          <!--   placeholder="Ex: Machado de Assis" -->
+          <!--   required -->
+          <!-- /> -->
+        </div>
+
+        <input
+          class="botao-enviar"
+          id="botao-cadastrar"
+          type="submit"
+          name="cadastrar"
+          value="Cadastrar"
+        />
+      </form>
+
+      <hr />
+
+      <a href="./index.html" class="home">Voltar para o início</a>
+    </main>
+    <script type="module" src="../src/script.js"></script>
+  </body>
+</html>

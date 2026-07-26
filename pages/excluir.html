@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Excluir</title>
+    <link href="../src/style.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="../src/favicon.ico" />
+  </head>
+  <body>
+    <main>
+      <h1 class="titulo">Excluir Dados</h1>
+      <hr />
+
+      <p class="info">Selecione a Tabela para inserir os dados</p>
+      <select id="select-tabela">
+        <option value="autores">autores</option>
+        <option value="generos">generos</option>
+        <option value="livros">livros</option>
+      </select>
+
+      <form id="formulario-excluir">
+        <label for="select-dados"
+          >Selecione o valor que será apagado
+          <span class="obrigatorio">*</span></label
+        >
+        <select id="select-dados">
+          <option value="" disabled selected>Selecione uma opção</option>
+        </select>
+        <!-- <div id="container-campos"></div> -->
+
+        <!-- <label for="valor-apagado" -->
+        <!--   >Selecione o valor que será apagado -->
+        <!--   <span class="obrigatorio">*</span></label -->
+        <!-- > -->
+        <!-- <select name="valor-apagado" required> -->
+        <!--   <option value="" disabled selected>Selecione uma opção</option> -->
+        <!--   <option value="machado">Machado</option> -->
+        <!--   <option value="clarice">Clarice</option> -->
+        <!-- </select> -->
+
+        <input
+          class="botao-enviar"
+          id="botao-excluir"
+          type="submit"
+          name="excluir"
+          value="Excluir"
+        />
+      </form>
+
+      <hr />
+      <a href="./index.html" class="home">Voltar para o início</a>
+    </main>
+    <script type="module" src="../src/script.js"></script>
+  </body>
+</html>
