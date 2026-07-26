@@ -195,3 +195,63 @@ th,
 td {
   padding: 10px;
 }
+
+/* Responsividade  */
+
+@media (max-width: 580px) {
+  html {
+    font-size: 13px;
+  }
+
+  body {
+    padding: 15px;
+  }
+
+  .titulo {
+    font-size: 2.2rem;
+    text-align: center;
+    word-break: break-word;
+  }
+
+  section {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 1.5rem 0;
+    width: 100%;
+  }
+
+  section a {
+    margin: 0;
+    padding: 15px 10px;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  main {
+    width: 100%;
+    align-items: center;
+    margin: 10px 0;
+  }
+
+  select {
+    width: 100%;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  form input.botao-enviar {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+  }
+}
