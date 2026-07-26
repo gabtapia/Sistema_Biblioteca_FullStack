@@ -398,8 +398,12 @@ if (formularioExcluir) {
       await excluirAutor(id);
       alert("Autor excluído com sucesso!");
     } else if (tabela === "generos") {
-      await excluirGenero(id);
-      alert("Gênero excluído com sucesso!");
+      try {
+        await excluirGenero(id);
+        alert("Gênero excluído com sucesso!");
+      } catch (erro) {
+        alert(erro.message);
+      }
     } else if (tabela === "livros") {
       await excluirLivro(id);
       alert("Livro excluído com sucesso!");

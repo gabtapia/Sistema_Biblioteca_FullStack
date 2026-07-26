@@ -73,7 +73,12 @@ export async function excluirGenero(id) {
   const res = await fetch(`${API_URL}/generos/${id}`, {
     method: "DELETE",
   });
-  return res.ok;
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => null);
+    const errorMessage = errorData?.detail || "Erro ao excluir o gênero.";
+    throw new Error(errorMessage);
+  }
+  return true;
 }
 
 // Livros
