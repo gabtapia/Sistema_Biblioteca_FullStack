@@ -321,28 +321,48 @@ if (formularioCadastro) {
   formularioCadastro.addEventListener("submit", async (evento) => {
     evento.preventDefault();
 
-    const tabela = selectTabela.value;
+    const btnSubmit = formularioCadastro.querySelector(".botao-enviar");
+    const textoOriginal = btnSubmit ? btnSubmit.textContent : "";
 
-    if (tabela === "autores") {
-      const nomeAutor = document.querySelector("#nome-autor").value;
-      await criarAutor(nomeAutor);
-      alert("Autor criado com sucesso!");
-    } else if (tabela === "generos") {
-      const nomeGenero = document.querySelector("#genero").value;
-      await criarGenero(nomeGenero);
-      alert("Gênero criado com sucesso!");
-    } else if (tabela === "livros") {
-      const dadosLivro = {
-        titulo: document.querySelector("#titulo-livro").value,
-        data_publicacao: document.querySelector("#dt-livro").value,
-        preco: parseFloat(document.querySelector("#preco-livro").value),
-        id_autor: parseInt(document.querySelector("#autor-livro").value),
-        id_genero: parseInt(document.querySelector("#genero-livro").value),
-      };
-      await criarLivro(dadosLivro);
-      alert("Livro criado com sucesso!");
+    if (btnSubmit) {
+      btnSubmit.textContent = "Cadastrando...";
+      btnSubmit.disabled = true;
     }
-    formularioCadastro.reset();
+    try {
+      const tabela = selectTabela.value;
+
+      if (tabela === "autores") {
+        const nomeAutor = document.querySelector("#nome-autor").value;
+        await criarAutor(nomeAutor);
+        alert("Autor criado com sucesso!");
+      } else if (tabela === "generos") {
+        const nomeGenero = document.querySelector("#genero").value;
+        await criarGenero(nomeGenero);
+        alert("Gênero criado com sucesso!");
+      } else if (tabela === "livros") {
+        const dadosLivro = {
+          titulo: document.querySelector("#titulo-livro").value,
+          data_publicacao: document.querySelector("#dt-livro").value,
+          preco: parseFloat(document.querySelector("#preco-livro").value),
+          id_autor: parseInt(document.querySelector("#autor-livro").value),
+          id_genero: parseInt(document.querySelector("#genero-livro").value),
+        };
+        await criarLivro(dadosLivro);
+        alert("Livro criado com sucesso!");
+      }
+
+      formularioCadastro.reset();
+      await popularSelectDados();
+      await popularTabelaVisualizar();
+    } catch (erro) {
+      console.error(erro);
+      alert(erro.message || "Erro ao realizar o cadastro. Tente novamente.");
+    } finally {
+      if (btnSubmit) {
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = textoOriginal;
+      }
+    }
   });
 }
 
@@ -358,28 +378,47 @@ if (formularioEditar) {
       return;
     }
 
-    if (tabela === "autores") {
-      const novoNomeAutor = document.querySelector("#nome-autor").value;
-      await editarAutor(idAlterado, novoNomeAutor);
-      alert("Autor editado com sucesso!");
-    } else if (tabela === "generos") {
-      const novoGenero = document.querySelector("#genero").value;
-      await editarGenero(idAlterado, novoGenero);
-      alert("Genero editado com sucesso!");
-    } else if (tabela === "livros") {
-      const novosDadosLivro = {
-        titulo: document.querySelector("#titulo-livro").value,
-        data_publicacao: document.querySelector("#dt-livro").value,
-        preco: parseFloat(document.querySelector("#preco-livro").value),
-        id_autor: parseInt(document.querySelector("#autor-livro").value),
-        id_genero: parseInt(document.querySelector("#genero-livro").value),
-      };
+    const btnSubmit = formularioEditar.querySelector(".botao-enviar");
+    const textoOriginal = btnSubmit ? btnSubmit.textContent : "";
 
-      await editarLivro(idAlterado, novosDadosLivro);
-      alert("Livro editado com sucesso!");
+    if (btnSubmit) {
+      btnSubmit.textContent = "Editando...";
+      btnSubmit.disabled = true;
     }
-    formularioEditar.reset();
-    await popularSelectDados();
+
+    try {
+      if (tabela === "autores") {
+        const novoNomeAutor = document.querySelector("#nome-autor").value;
+        await editarAutor(idAlterado, novoNomeAutor);
+        alert("Autor editado com sucesso!");
+      } else if (tabela === "generos") {
+        const novoGenero = document.querySelector("#genero").value;
+        await editarGenero(idAlterado, novoGenero);
+        alert("Genero editado com sucesso!");
+      } else if (tabela === "livros") {
+        const novosDadosLivro = {
+          titulo: document.querySelector("#titulo-livro").value,
+          data_publicacao: document.querySelector("#dt-livro").value,
+          preco: parseFloat(document.querySelector("#preco-livro").value),
+          id_autor: parseInt(document.querySelector("#autor-livro").value),
+          id_genero: parseInt(document.querySelector("#genero-livro").value),
+        };
+
+        await editarLivro(idAlterado, novosDadosLivro);
+        alert("Livro editado com sucesso!");
+      }
+      formularioEditar.reset();
+      await popularSelectDados();
+      await popularTabelaVisualizar();
+    } catch (erro) {
+      console.error(erro);
+      alert(erro.message || "Erro ao editar o registro. Tente novamente.");
+    } finally {
+      if (btnSubmit) {
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = textoOriginal;
+      }
+    }
   });
 }
 
@@ -389,25 +428,45 @@ if (formularioExcluir) {
 
     const tabela = selectTabela.value;
     const id = selectDados.value;
+
     if (!id) {
       alert("Por favor, selecione um registro para excluir.");
       return;
     }
 
-    if (tabela === "autores") {
-      await excluirAutor(id);
-      alert("Autor excluído com sucesso!");
-    } else if (tabela === "generos") {
-      try {
-        await excluirGenero(id);
-        alert("Gênero excluído com sucesso!");
-      } catch (erro) {
-        alert(erro.message);
-      }
-    } else if (tabela === "livros") {
-      await excluirLivro(id);
-      alert("Livro excluído com sucesso!");
+    const btnSubmit = formularioExcluir.querySelector(".botao-enviar");
+    const textoOriginal = btnSubmit ? btnSubmit.textContent : "";
+
+    if (btnSubmit) {
+      btnSubmit.textContent = "Excluindo...";
+      btnSubmit.disabled = true;
     }
-    await popularSelectDados();
+
+    try {
+      if (tabela === "autores") {
+        await excluirAutor(id);
+        alert("Autor excluído com sucesso!");
+      } else if (tabela === "generos") {
+        try {
+          await excluirGenero(id);
+          alert("Gênero excluído com sucesso!");
+        } catch (erro) {
+          alert(erro.message);
+        }
+      } else if (tabela === "livros") {
+        await excluirLivro(id);
+        alert("Livro excluído com sucesso!");
+      }
+      await popularSelectDados();
+      await popularTabelaVisualizar();
+    } catch (erro) {
+      console.error(erro);
+      alert(erro.message || "Erro ao excluir o registro. Tente novamente.");
+    } finally {
+      if (btnSubmit) {
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = textoOriginal;
+      }
+    }
   });
 }

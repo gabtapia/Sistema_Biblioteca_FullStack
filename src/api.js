@@ -19,6 +19,10 @@ export async function criarAutor(nome) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ nome }),
   });
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => null);
+    throw new Error(errorData?.detail || "Erro ao cadastrar o autor.");
+  }
   return await res.json();
 }
 
@@ -28,6 +32,10 @@ export async function editarAutor(id, nome) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ nome }),
   });
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => null);
+    throw new Error(errorData?.detail || "Erro ao editar o autor.");
+  }
   return await res.json();
 }
 
@@ -35,6 +43,11 @@ export async function excluirAutor(id) {
   const res = await fetch(`${API_URL}/autores/${id}`, {
     method: "DELETE",
   });
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => null);
+    const errorMessage = errorData?.detail || "Erro ao excluir o autor.";
+    throw new Error(errorMessage);
+  }
   return res.ok;
 }
 
@@ -57,6 +70,10 @@ export async function criarGenero(genero) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ genero }),
   });
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => null);
+    throw new Error(errorData?.detail || "Erro ao cadastrar o gênero.");
+  }
   return await res.json();
 }
 
@@ -66,6 +83,10 @@ export async function editarGenero(id, genero) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ genero }),
   });
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => null);
+    throw new Error(errorData?.detail || "Erro ao editar o gênero.");
+  }
   return await res.json();
 }
 
@@ -100,6 +121,10 @@ export async function criarLivro(dadosLivro) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(dadosLivro),
   });
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => null);
+    throw new Error(errorData?.detail || "Erro ao cadastrar o livro.");
+  }
   return await res.json();
 }
 
@@ -109,6 +134,10 @@ export async function editarLivro(id, dadosLivro) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(dadosLivro),
   });
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => null);
+    throw new Error(errorData?.detail || "Erro ao editar o livro.");
+  }
   return await res.json();
 }
 
@@ -116,5 +145,10 @@ export async function excluirLivro(id) {
   const res = await fetch(`${API_URL}/livros/${id}`, {
     method: "DELETE",
   });
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => null);
+    const errorMessage = errorData?.detail || "Erro ao excluir o livro.";
+    throw new Error(errorMessage);
+  }
   return res.ok;
 }
